@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TextureAggregator</RootNamespace>
     <AssemblyName>TextureAggregator</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FtexTool">
-      <HintPath>..\MassTextureConverter\bin\Debug\FtexTool.dll</HintPath>
+      <HintPath>..\..\lib\FtexTool.dll</HintPath>
     </Reference>
     <Reference Include="GzsTool.Core">
-      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\GzsTool.v0.5.3.1b\GzsTool.Core.dll</HintPath>
+      <HintPath>..\..\lib\GzsTool.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,6 +87,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

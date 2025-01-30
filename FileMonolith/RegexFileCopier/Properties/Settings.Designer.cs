@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArchiveTransferrer.Properties {
+namespace RegexFileCopier.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,24 +26,36 @@ namespace ArchiveTransferrer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string GZExe {
+        public string inputDirectory {
             get {
-                return ((string)(this["GZExe"]));
+                return ((string)(this["inputDirectory"]));
             }
             set {
-                this["GZExe"] = value;
+                this["inputDirectory"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TPPExe {
+        public string outputDirectory {
             get {
-                return ((string)(this["TPPExe"]));
+                return ((string)(this["outputDirectory"]));
             }
             set {
-                this["TPPExe"] = value;
+                this["outputDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string regexText {
+            get {
+                return ((string)(this["regexText"]));
+            }
+            set {
+                this["regexText"] = value;
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveUnpacker", "FileMonolith\ArchiveUnpacker.csproj", "{E40EC0B4-4232-417D-B041-97AC71381EA3}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveTransferrer", "ArchiveTransferrer\ArchiveTransferrer.csproj", "{1A8742A5-A5AC-4059-9906-4A1C4AA79539}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureAggregator", "TextureAggregator\TextureAggregator.csproj", "{6E60F497-0669-450B-BAA0-9E80E8B93739}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegexFileCopier", "RegexFileCopier\RegexFileCopier.csproj", "{38D3A9A0-1B4F-4D48-85CF-AD18DB2C861E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +47,15 @@ Global
 		{6E60F497-0669-450B-BAA0-9E80E8B93739}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E60F497-0669-450B-BAA0-9E80E8B93739}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E60F497-0669-450B-BAA0-9E80E8B93739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38D3A9A0-1B4F-4D48-85CF-AD18DB2C861E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38D3A9A0-1B4F-4D48-85CF-AD18DB2C861E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38D3A9A0-1B4F-4D48-85CF-AD18DB2C861E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38D3A9A0-1B4F-4D48-85CF-AD18DB2C861E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7E3BB46-93A5-4C96-B922-B5FA96B055E9}
 	EndGlobalSection
 EndGlobal
