@@ -1,6 +1,7 @@
 using ProcessWindow;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace RegexFileCopier
 {
@@ -118,12 +119,43 @@ namespace RegexFileCopier
                 return;
             }
 
-            CopyManager extractManager = new CopyManager();
+            CopyManager copyManager = new CopyManager();
             FormProcessing processWindow = new FormProcessing();
-            extractManager.SendFeedback += processWindow.OnSendFeedback;
+            copyManager.SendFeedback += processWindow.OnSendFeedback;
 
-            ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { extractManager.DoCopy(inputDir, outputDir, regexText); }));
-            MessageBox.Show("Done!", "Process Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            List<string > files = new List<string>();
+            ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { files = copyManager.DoScan(inputDir, regexText); }));
+
+            if (files.Count > 0)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine($"The directory contains {files.Count} matching result(s), including:\n");
+                for (int i = 0; i < 3; i++)
+                {
+                    if (i >= files.Count)
+                    {
+                        break;
+                    }
+
+                    stringBuilder.AppendLine(files[i]);
+                    if (i == 2 && i < files.Count - 1)
+                    {
+                        stringBuilder.AppendLine("...");
+                        break;
+                    }
+                }
+                stringBuilder.AppendLine("\nPress OK to copy.");
+
+                var dialog = MessageBox.Show(stringBuilder.ToString(), $"{files.Count} result(s) found", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (dialog == DialogResult.OK)
+                {
+                    ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { copyManager.DoCopy(inputDir, outputDir); }));
+                    MessageBox.Show("Done!", "Process Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            } else
+            {
+                MessageBox.Show("The directory contains no matching results.", "No matching results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ArchiveUnpacker
         private void buttonArchives_Click(object sender, EventArgs e)
         {
             OpenFileDialog inputDialog = new OpenFileDialog();
-            inputDialog.Filter = "Archive Files|*.dat";
+            inputDialog.Filter = "Archive Files (*.dat)|*.dat|Mod Files (*.mgsv)|*.mgsv";
             inputDialog.Multiselect = true;
 
             DialogResult selectionResult = inputDialog.ShowDialog();

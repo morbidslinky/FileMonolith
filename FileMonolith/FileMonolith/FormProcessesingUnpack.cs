@@ -11,11 +11,18 @@ namespace ArchiveUnpacker
         }
         public void OnSendFeedback(object source, FeedbackEventArgs e)
         {
-            try
+            if (e.Feedback is string)
             {
-                labelCurrentFile.Invoke(new Action(() => labelCurrentFile.Text = (string)e.Feedback));
+                if (labelCurrentFile.InvokeRequired)
+                {
+                    labelCurrentFile.Invoke(new Action(() => labelCurrentFile.Text = (string)e.Feedback));
+                }
+                else
+                {
+                    labelCurrentFile.Text = (string)e.Feedback;
+                }
             }
-            catch
+            else if (e.Feedback is Exception)
             {
                 MessageBox.Show("Exception occurred during unpack: \n" + (Exception)e.Feedback);
             }

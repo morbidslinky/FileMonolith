@@ -5,6 +5,7 @@ using GzsTool.Core.Pftxs;
 using GzsTool.Core.Qar;
 using GzsTool.Core.Sbp;
 using GzsTool.Core.Utility;
+using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +31,7 @@ namespace ArchiveUnpacker
             {
                 ReadDictionaries();
                 UnpackQarArchives(archiveFilePaths, outputDir);
+                UnpackModArchives(archiveFilePaths, outputDir);
                 UnpackChildArchives(outputDir, isCondensed);
                 //UnpackChildArchivesCatchEdgeCases(outputDir, isCondensed);
 
@@ -68,6 +70,7 @@ namespace ArchiveUnpacker
         {
             foreach (string filePath in qarFilePaths)
             {
+                if (filePath.EndsWith(".mgsv")) continue;
                 try
                 {
                     OnSendFeedback(Path.GetFileName(filePath));
@@ -77,6 +80,24 @@ namespace ArchiveUnpacker
                 {
                     string filename = Path.GetFileName(filePath);
                     MessageBox.Show(filename + " could not be unpacked.","Unpack Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        public void UnpackModArchives(string[] qarFilePaths, string outputDir)
+        {
+            foreach (string filePath in qarFilePaths)
+            {
+                if (!filePath.EndsWith(".mgsv")) continue;
+                try
+                {
+                    OnSendFeedback(Path.GetFileName(filePath));
+                    ExtractModArchive(filePath, outputDir);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    string filename = Path.GetFileName(filePath);
+                    MessageBox.Show(filename + " could not be unpacked.", "Unpack Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -274,7 +295,6 @@ namespace ArchiveUnpacker
 
         public void ReadQARArchive(string filePath, string outputDir)
         {
-
             IDirectory iDir = new FileSystemDirectory(outputDir);
 
             using (FileStream input = new FileStream(filePath, FileMode.Open))
@@ -286,6 +306,12 @@ namespace ArchiveUnpacker
                     iDir.WriteFile(exportedFile.FileName, exportedFile.DataStream); // doesn't bother checking if the file already exists, since dats don't often have pre-existing stuff to overwrite. saved roughly 30 seconds when unpacking texture3
                 }
             }
+        }
+
+        public void ExtractModArchive(string filePath, string outputDir)
+        {
+            FastZip fastZip = new FastZip();
+            fastZip.ExtractZip(filePath, outputDir, null);
         }
 
         public List<string> ReadArchiveCatchEdgeCases<T>(string filePath, string outputDir) where T : ArchiveFile, new() // Searches for oddball files that share a filename but have different contents

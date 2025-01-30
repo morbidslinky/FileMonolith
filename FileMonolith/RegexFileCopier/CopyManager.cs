@@ -8,12 +8,32 @@ namespace RegexFileCopier
     {
         public event EventHandler<FeedbackEventArgs> SendFeedback;
 
+        private List<string> files = new List<string>();
+
         protected virtual void OnSendFeedback(object feedback)
         {
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }
 
-        public void DoCopy(string inputDir, string outputDir, string strRegex)
+        public List<string> DoScan(string inputDir, string strRegex)
+        {
+            OnSendFeedback("Scanning files...");
+            if (!Directory.Exists(inputDir))
+            {
+                return new List<string>();
+            }
+
+            var regex = new Regex(strRegex, RegexOptions.Compiled);
+
+            files = Directory.EnumerateFiles(inputDir, "*", SearchOption.AllDirectories)
+                    .Select(file => Path.GetRelativePath(inputDir, file))
+                    .Where(file => regex.IsMatch(Path.GetFileName(file)))
+                    .ToList();
+
+            return files;
+        }
+
+        public void DoCopy(string inputDir, string outputDir)
         {
             try
             {
@@ -24,18 +44,10 @@ namespace RegexFileCopier
 
                 if (!Directory.Exists(outputDir))
                 {
-                    Directory.CreateDirectory(outputDir); // Ensure outputDir exists
+                    Directory.CreateDirectory(outputDir);
                 }
 
-                var regex = new Regex(strRegex, RegexOptions.Compiled);
-
-                OnSendFeedback("Scanning files...");
-                var fileMatches = Directory.EnumerateFiles(inputDir, "*", SearchOption.AllDirectories)
-                    .Select(file => Path.GetRelativePath(inputDir, file))
-                    .Where(file => regex.IsMatch(Path.GetFileName(file)))
-                    .ToList();
-
-                foreach (var file in fileMatches)
+                foreach (var file in files)
                 {
                     var sourcePath = Path.Combine(inputDir, file);
                     var destinationPath = Path.Combine(outputDir, file);
