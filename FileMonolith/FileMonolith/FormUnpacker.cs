@@ -1,5 +1,4 @@
-﻿using FolderSelect;
-using ProcessWindow;
+﻿using ProcessWindow;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -42,19 +41,21 @@ namespace ArchiveUnpacker
 
         private void buttonOutDir_Click(object sender, EventArgs e)
         {
-            FolderSelectDialog selectionDialog = new FolderSelectDialog();
-            selectionDialog.Title = "Choose a folder where the .dat files will unpack into. Making a new folder is highly recommended.";
+            using (FolderBrowserDialog  folderBrowserDialog = new FolderBrowserDialog()) {
+                folderBrowserDialog.Description = "Choose a folder where the .dat files will unpack into. Making a new folder is highly recommended.";
+                folderBrowserDialog.UseDescriptionForTitle = true;
 
-            if (textOutDir.Text != "")
-                selectionDialog.InitialDirectory = textOutDir.Text;
-            else if (textArchives.Text != "")
-                selectionDialog.InitialDirectory = Path.GetDirectoryName(archivePaths[0]);
+                if (textOutDir.Text != "")
+                    folderBrowserDialog.InitialDirectory = textOutDir.Text;
+                else if (textArchives.Text != "")
+                    folderBrowserDialog.InitialDirectory = Path.GetDirectoryName(archivePaths[0]);
 
-            if (selectionDialog.ShowDialog() != true) return;
-            string directoryPath = selectionDialog.FileName;
+                if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
+                string directoryPath = folderBrowserDialog.SelectedPath;
 
-            outputDir = directoryPath;
-            textOutDir.Text = directoryPath;
+                outputDir = directoryPath;
+                textOutDir.Text = directoryPath;
+            }
         }
 
         private void buttonStart_Click(object sender, EventArgs e)

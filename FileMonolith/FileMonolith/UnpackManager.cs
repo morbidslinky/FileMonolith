@@ -270,7 +270,7 @@ namespace ArchiveUnpacker
             IDirectory iDir = new FileSystemDirectory(outputDir);
             List<string> fileNames = new List<string>();
 
-            using (FileStream input = new FileStream(filePath, FileMode.Open))
+            using (FileStream input = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 T file = new T();
                 file.Read(input);
@@ -297,7 +297,7 @@ namespace ArchiveUnpacker
         {
             IDirectory iDir = new FileSystemDirectory(outputDir);
 
-            using (FileStream input = new FileStream(filePath, FileMode.Open))
+            using (FileStream input = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 QarFile file = new QarFile();
                 file.Read(input);
@@ -320,7 +320,7 @@ namespace ArchiveUnpacker
             IDirectory iDir = new FileSystemDirectory(outputDir);
             List<string> fileNames = new List<string>();
 
-            using (FileStream input = new FileStream(filePath, FileMode.Open))
+            using (FileStream input = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 T file = new T();
                 file.Read(input);

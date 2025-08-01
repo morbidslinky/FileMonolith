@@ -68,7 +68,7 @@ namespace TextureAggregator
             IDirectory iDir = new FileSystemDirectory(outputDir);
             List<string> fileNames = new List<string>();
 
-            using (FileStream input = new FileStream(filePath, FileMode.Open))
+            using (FileStream input = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 T file = new T();
                 file.Read(input);

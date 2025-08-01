@@ -53,7 +53,7 @@ namespace ArchiveTransferrer
                 OnSendFeedback("Extracting data_01.g0s...");
                 // OPEN G0S
                 IDirectory outputDirectory = new FileSystemDirectory(g0sWorkDir);
-                using (FileStream input = new FileStream(GZg0sDst, FileMode.Open))
+                using (FileStream input = new FileStream(GZg0sDst, FileMode.Open, FileAccess.Read))
                 {
                     GzsFile file = new GzsFile();
                     file.Name = Path.GetFileNameWithoutExtension(GZg0sDst);
@@ -153,7 +153,7 @@ namespace ArchiveTransferrer
         private static void WriteArchive(string path)
         {
             var directory = Path.GetDirectoryName(path);
-            using (FileStream xmlInput = new FileStream(path, FileMode.Open))
+            using (FileStream xmlInput = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 ArchiveFile file = ArchiveSerializer.Deserialize(xmlInput) as ArchiveFile;
                 if (file == null)

@@ -15,7 +15,7 @@ namespace FileProliferator.AutoPftxsTool
          */
         public static void ExtractArchive<T>(string FileName, string OutputPath) where T : ArchiveFile, new()
         {
-            using (FileStream archiveFile = new FileStream(FileName, FileMode.Open))
+            using (FileStream archiveFile = new FileStream(FileName, FileMode.Open, FileAccess.Read))
             {
                 List<string> outFiles = new List<string>();
                 T archive = new T();
