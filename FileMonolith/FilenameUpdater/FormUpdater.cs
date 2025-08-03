@@ -1,5 +1,4 @@
-﻿using FolderSelect;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -50,19 +49,22 @@ namespace FilenameUpdater
 
         private void buttonOutDir_Click(object sender, EventArgs e)
         {
-            FolderSelectDialog selectionDialog = new FolderSelectDialog();
-            selectionDialog.Title = "Choose a folder where the updated files will be sent. Making a new folder is highly recommended.";
+            using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
+            {
+                selectionDialog.Description = "Choose a folder where the updated files will be sent. Making a new folder is highly recommended.";
+                selectionDialog.UseDescriptionForTitle = true;
 
-            if (textOutDir.Text != "")
-                selectionDialog.InitialDirectory = textOutDir.Text;
-            else if (textInFiles.Text != "")
-                selectionDialog.InitialDirectory = Path.GetDirectoryName(selectedFilePaths[0]);
+                if (textOutDir.Text != "")
+                    selectionDialog.InitialDirectory = textOutDir.Text;
+                else if (textInFiles.Text != "")
+                    selectionDialog.InitialDirectory = Path.GetDirectoryName(selectedFilePaths[0]);
 
-            if (selectionDialog.ShowDialog() != true) return;
-            string directoryPath = selectionDialog.FileName;
+                if (selectionDialog.ShowDialog() != DialogResult.OK) return;
+                string directoryPath = selectionDialog.SelectedPath;
 
-            outputDirectory = directoryPath;
-            textOutDir.Text = directoryPath;
+                outputDirectory = directoryPath;
+                textOutDir.Text = directoryPath;
+            }
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)

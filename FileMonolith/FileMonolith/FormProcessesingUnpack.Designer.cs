@@ -68,7 +68,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(376, 105);
+            ClientSize = new System.Drawing.Size(372, 101);
             ControlBox = false;
             Controls.Add(pictureSpiral);
             Controls.Add(labelCurrentFile);

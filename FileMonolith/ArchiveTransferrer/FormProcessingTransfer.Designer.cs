@@ -29,57 +29,61 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProcessingTransfer));
-            this.pictureSpiral = new System.Windows.Forms.PictureBox();
-            this.labelCurrentWork = new System.Windows.Forms.Label();
-            this.labelUpdate = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureSpiral)).BeginInit();
-            this.SuspendLayout();
+            pictureSpiral = new System.Windows.Forms.PictureBox();
+            labelCurrentWork = new System.Windows.Forms.Label();
+            labelUpdate = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)pictureSpiral).BeginInit();
+            SuspendLayout();
             // 
             // pictureSpiral
             // 
-            this.pictureSpiral.Image = ((System.Drawing.Image)(resources.GetObject("pictureSpiral.Image")));
-            this.pictureSpiral.Location = new System.Drawing.Point(12, 8);
-            this.pictureSpiral.Name = "pictureSpiral";
-            this.pictureSpiral.Size = new System.Drawing.Size(36, 35);
-            this.pictureSpiral.TabIndex = 8;
-            this.pictureSpiral.TabStop = false;
+            pictureSpiral.Image = (System.Drawing.Image)resources.GetObject("pictureSpiral.Image");
+            pictureSpiral.Location = new System.Drawing.Point(14, 9);
+            pictureSpiral.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureSpiral.Name = "pictureSpiral";
+            pictureSpiral.Size = new System.Drawing.Size(42, 40);
+            pictureSpiral.TabIndex = 8;
+            pictureSpiral.TabStop = false;
             // 
             // labelCurrentWork
             // 
-            this.labelCurrentWork.Location = new System.Drawing.Point(12, 46);
-            this.labelCurrentWork.Name = "labelCurrentWork";
-            this.labelCurrentWork.Size = new System.Drawing.Size(306, 43);
-            this.labelCurrentWork.TabIndex = 7;
-            this.labelCurrentWork.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelCurrentWork.Location = new System.Drawing.Point(14, 53);
+            labelCurrentWork.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelCurrentWork.Name = "labelCurrentWork";
+            labelCurrentWork.Size = new System.Drawing.Size(357, 50);
+            labelCurrentWork.TabIndex = 7;
+            labelCurrentWork.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelUpdate
             // 
-            this.labelUpdate.Location = new System.Drawing.Point(12, 8);
-            this.labelUpdate.Name = "labelUpdate";
-            this.labelUpdate.Size = new System.Drawing.Size(306, 23);
-            this.labelUpdate.TabIndex = 6;
-            this.labelUpdate.Text = "Transferring, please wait...";
-            this.labelUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelUpdate.Location = new System.Drawing.Point(14, 9);
+            labelUpdate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelUpdate.Name = "labelUpdate";
+            labelUpdate.Size = new System.Drawing.Size(357, 27);
+            labelUpdate.TabIndex = 6;
+            labelUpdate.Text = "Transferring, please wait...";
+            labelUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormProcessingTransfer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(318, 86);
-            this.ControlBox = false;
-            this.Controls.Add(this.pictureSpiral);
-            this.Controls.Add(this.labelCurrentWork);
-            this.Controls.Add(this.labelUpdate);
-            this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormProcessingTransfer";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Processing...";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureSpiral)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(366, 96);
+            ControlBox = false;
+            Controls.Add(pictureSpiral);
+            Controls.Add(labelCurrentWork);
+            Controls.Add(labelUpdate);
+            Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormProcessingTransfer";
+            ShowIcon = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Processing...";
+            ((System.ComponentModel.ISupportInitialize)pictureSpiral).EndInit();
+            ResumeLayout(false);
 
         }
 

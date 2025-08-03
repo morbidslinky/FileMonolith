@@ -1,5 +1,4 @@
-﻿using FolderSelect;
-using ProcessWindow;
+﻿using ProcessWindow;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -124,54 +123,60 @@ namespace TextureAggregator
 
         private void buttonOutDir_Click(object sender, EventArgs e)
         {
-            FolderSelectDialog selectionDialog = new FolderSelectDialog();
-            selectionDialog.Title = "Choose a folder where the files will be copied to. Making a new folder is highly recommended.";
-
-            string defaultOutputDir = Properties.Settings.Default.outputDirectory;
-            if (!string.IsNullOrEmpty(defaultOutputDir))
+            using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
             {
-                if (Directory.Exists(defaultOutputDir))
+                selectionDialog.Description = "Choose a folder where the files will be copied to. Making a new folder is highly recommended.";
+                selectionDialog.UseDescriptionForTitle = true;
+
+                string defaultOutputDir = Properties.Settings.Default.outputDirectory;
+                if (!string.IsNullOrEmpty(defaultOutputDir))
                 {
-                    selectionDialog.InitialDirectory = defaultOutputDir;
+                    if (Directory.Exists(defaultOutputDir))
+                    {
+                        selectionDialog.InitialDirectory = defaultOutputDir;
+                    }
                 }
+
+                if (selectionDialog.ShowDialog() != DialogResult.OK) return;
+                string directoryPath = selectionDialog.SelectedPath;
+
+                if (!string.IsNullOrEmpty(directoryPath))
+                {
+                    Properties.Settings.Default.outputDirectory = directoryPath;
+                    Properties.Settings.Default.Save();
+                }
+
+                textOutDir.Text = directoryPath;
             }
-
-            if (selectionDialog.ShowDialog() != true) return;
-            string directoryPath = selectionDialog.FileName;
-
-            if (!string.IsNullOrEmpty(directoryPath))
-            {
-                Properties.Settings.Default.outputDirectory = directoryPath;
-                Properties.Settings.Default.Save();
-            }
-
-            textOutDir.Text = directoryPath;
         }
 
         private void buttonArchiveDir_Click(object sender, EventArgs e)
         {
-            FolderSelectDialog selectionDialog = new FolderSelectDialog();
-            selectionDialog.Title = "Choose a folder where vanilla .ftex and .ftexs files can be copied from. The tool will search subfolders as well.";
-
-            string defaultTextureDir = Properties.Settings.Default.textureDirectory;
-            if (!string.IsNullOrEmpty(defaultTextureDir))
+            using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
             {
-                if (Directory.Exists(defaultTextureDir))
+                selectionDialog.Description = "Choose a folder where vanilla .ftex and .ftexs files can be copied from. The tool will search subfolders as well.";
+                selectionDialog.UseDescriptionForTitle = true;
+
+                string defaultTextureDir = Properties.Settings.Default.textureDirectory;
+                if (!string.IsNullOrEmpty(defaultTextureDir))
                 {
-                    selectionDialog.InitialDirectory = defaultTextureDir;
+                    if (Directory.Exists(defaultTextureDir))
+                    {
+                        selectionDialog.InitialDirectory = defaultTextureDir;
+                    }
                 }
-            }
 
-            if (selectionDialog.ShowDialog() != true) return;
-            string directoryPath = selectionDialog.FileName;
+                if (selectionDialog.ShowDialog() != DialogResult.OK) return;
+                string directoryPath = selectionDialog.SelectedPath;
 
-            if (!string.IsNullOrEmpty(directoryPath))
-            {
-                Properties.Settings.Default.textureDirectory = directoryPath;
-                Properties.Settings.Default.Save();
+                if (!string.IsNullOrEmpty(directoryPath))
+                {
+                    Properties.Settings.Default.textureDirectory = directoryPath;
+                    Properties.Settings.Default.Save();
+                }
+
+                textArchiveDir.Text = directoryPath;
             }
-            
-            textArchiveDir.Text = directoryPath;
         }
 
         private void buttonAggregate_Click(object sender, EventArgs e)

@@ -1,5 +1,4 @@
-﻿using FolderSelect;
-using ProcessWindow;
+﻿using ProcessWindow;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -123,29 +122,31 @@ namespace FileProliferator
 
         private void buttonOutDir_Click(object sender, EventArgs e)
         {
-            FolderSelectDialog selectionDialog = new FolderSelectDialog();
-            selectionDialog.Title = "Choose a folder where the MakeBite structure will be built. Making a new folder is highly recommended.";
-
             string defaultOutputDir = Properties.Settings.Default.outputDirectory;
-            if (!string.IsNullOrEmpty(defaultOutputDir))
-            {
-                if (Directory.Exists(defaultOutputDir))
-                {
-                    selectionDialog.InitialDirectory = defaultOutputDir;
-                }
-            }
-            
-            if (selectionDialog.ShowDialog() != true) return;
-            string directoryPath = selectionDialog.FileName;
-            
-            if (!string.IsNullOrEmpty(directoryPath))
-            {
-                Properties.Settings.Default.outputDirectory = directoryPath;
-                Properties.Settings.Default.Save();
-            }
 
-            outputDirectory = directoryPath;
-            textOutDir.Text = directoryPath;
+            using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
+            {
+                selectionDialog.Description = "Choose a folder where the MakeBite structure will be built. Making a new folder is highly recommended.";
+                selectionDialog.UseDescriptionForTitle = true;
+
+                if (textOutDir.Text != "")
+                    selectionDialog.InitialDirectory = textOutDir.Text;
+                else if (!string.IsNullOrEmpty(defaultOutputDir))
+                    selectionDialog.InitialDirectory = defaultOutputDir;
+
+                if (selectionDialog.ShowDialog() != DialogResult.OK) return;
+
+                string directoryPath = selectionDialog.SelectedPath;
+
+                if (!string.IsNullOrEmpty(directoryPath))
+                {
+                    Properties.Settings.Default.outputDirectory = directoryPath;
+                    Properties.Settings.Default.Save();
+                }
+
+                outputDirectory = directoryPath;
+                textOutDir.Text = directoryPath;
+            }
         }
 
         private void checkPullTextures_CheckedChanged(object sender, EventArgs e)
@@ -155,29 +156,31 @@ namespace FileProliferator
 
         private void buttonTextureDir_Click(object sender, EventArgs e)
         {
-            FolderSelectDialog selectionDialog = new FolderSelectDialog();
-            selectionDialog.Title = "Choose a folder where vanilla .ftex and .ftexs files can be copied from. The tool will search subfolders as well.";
-
             string defaultTextureDir = Properties.Settings.Default.textureDirectory;
-            if (!string.IsNullOrEmpty(defaultTextureDir))
+
+            using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
             {
-                if (Directory.Exists(defaultTextureDir))
-                {
+                selectionDialog.Description = "Choose a folder where vanilla .ftex and .ftexs files can be copied from. The tool will search subfolders as well.";
+                selectionDialog.UseDescriptionForTitle = true;
+
+                if (textTextureDir.Text != "")
+                    selectionDialog.InitialDirectory = textTextureDir.Text;
+                else if (!string.IsNullOrEmpty(defaultTextureDir))
                     selectionDialog.InitialDirectory = defaultTextureDir;
+
+                if (selectionDialog.ShowDialog() != DialogResult.OK) return;
+
+                string directoryPath = selectionDialog.SelectedPath;
+
+                if (!string.IsNullOrEmpty(directoryPath))
+                {
+                    Properties.Settings.Default.textureDirectory = directoryPath;
+                    Properties.Settings.Default.Save();
                 }
+
+                VanillaTexturesPath = directoryPath;
+                textTextureDir.Text = directoryPath;
             }
-
-            if (selectionDialog.ShowDialog() != true) return;
-            string directoryPath = selectionDialog.FileName;
-
-            if (!string.IsNullOrEmpty(directoryPath))
-            {
-                Properties.Settings.Default.textureDirectory = directoryPath;
-                Properties.Settings.Default.Save();
-            }
-
-            VanillaTexturesPath = directoryPath;
-            textTextureDir.Text = directoryPath;
         }
 
         private void buttonProliferate_Click(object sender, EventArgs e)

@@ -29,57 +29,61 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProcessingProliferation));
-            this.pictureSpiral = new System.Windows.Forms.PictureBox();
-            this.labelCurrentFile = new System.Windows.Forms.Label();
-            this.labelProliferate = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureSpiral)).BeginInit();
-            this.SuspendLayout();
+            pictureSpiral = new System.Windows.Forms.PictureBox();
+            labelCurrentFile = new System.Windows.Forms.Label();
+            labelProliferate = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)pictureSpiral).BeginInit();
+            SuspendLayout();
             // 
             // pictureSpiral
             // 
-            this.pictureSpiral.Image = ((System.Drawing.Image)(resources.GetObject("pictureSpiral.Image")));
-            this.pictureSpiral.Location = new System.Drawing.Point(12, 8);
-            this.pictureSpiral.Name = "pictureSpiral";
-            this.pictureSpiral.Size = new System.Drawing.Size(36, 35);
-            this.pictureSpiral.TabIndex = 5;
-            this.pictureSpiral.TabStop = false;
+            pictureSpiral.Image = (System.Drawing.Image)resources.GetObject("pictureSpiral.Image");
+            pictureSpiral.Location = new System.Drawing.Point(14, 9);
+            pictureSpiral.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureSpiral.Name = "pictureSpiral";
+            pictureSpiral.Size = new System.Drawing.Size(42, 40);
+            pictureSpiral.TabIndex = 5;
+            pictureSpiral.TabStop = false;
             // 
             // labelCurrentFile
             // 
-            this.labelCurrentFile.Location = new System.Drawing.Point(12, 46);
-            this.labelCurrentFile.Name = "labelCurrentFile";
-            this.labelCurrentFile.Size = new System.Drawing.Size(306, 43);
-            this.labelCurrentFile.TabIndex = 4;
-            this.labelCurrentFile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelCurrentFile.Location = new System.Drawing.Point(14, 53);
+            labelCurrentFile.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelCurrentFile.Name = "labelCurrentFile";
+            labelCurrentFile.Size = new System.Drawing.Size(357, 50);
+            labelCurrentFile.TabIndex = 4;
+            labelCurrentFile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelProliferate
             // 
-            this.labelProliferate.Location = new System.Drawing.Point(12, 8);
-            this.labelProliferate.Name = "labelProliferate";
-            this.labelProliferate.Size = new System.Drawing.Size(306, 23);
-            this.labelProliferate.TabIndex = 3;
-            this.labelProliferate.Text = "Building, please wait...";
-            this.labelProliferate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelProliferate.Location = new System.Drawing.Point(14, 9);
+            labelProliferate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelProliferate.Name = "labelProliferate";
+            labelProliferate.Size = new System.Drawing.Size(357, 27);
+            labelProliferate.TabIndex = 3;
+            labelProliferate.Text = "Building, please wait...";
+            labelProliferate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormProcessingProliferation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 94);
-            this.ControlBox = false;
-            this.Controls.Add(this.pictureSpiral);
-            this.Controls.Add(this.labelCurrentFile);
-            this.Controls.Add(this.labelProliferate);
-            this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormProcessingProliferation";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Processing...";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureSpiral)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(376, 104);
+            ControlBox = false;
+            Controls.Add(pictureSpiral);
+            Controls.Add(labelCurrentFile);
+            Controls.Add(labelProliferate);
+            Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormProcessingProliferation";
+            ShowIcon = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Processing...";
+            ((System.ComponentModel.ISupportInitialize)pictureSpiral).EndInit();
+            ResumeLayout(false);
 
         }
 

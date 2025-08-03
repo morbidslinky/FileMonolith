@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using FolderSelect;
 using ProcessWindow;
 using System.IO;
 
@@ -20,33 +19,40 @@ namespace MassTextureConverter
 
         private void buttonInDir_Click(object sender, EventArgs e)
         {
-            FolderSelectDialog selectionDialog = new FolderSelectDialog();
-            selectionDialog.Title = "Select a folder containing .ftex and .ftexs files.";
-            if (textInDir.Text != null)
-                selectionDialog.InitialDirectory = textInDir.Text;
-            if (selectionDialog.ShowDialog() != true) return;
-            string directoryPath = selectionDialog.FileName;
+            using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
+            {
+                selectionDialog.Description = "Select a folder containing .ftex and .ftexs files.";
+                selectionDialog.UseDescriptionForTitle = true;
 
-            textInDir.Text = directoryPath;
-            inputDirectory = directoryPath;
+                if (!string.IsNullOrEmpty(textInDir.Text))
+                    selectionDialog.InitialDirectory = textInDir.Text;
 
+                if (selectionDialog.ShowDialog() != DialogResult.OK) return;
+                string directoryPath = selectionDialog.SelectedPath;
+
+                textInDir.Text = directoryPath;
+                inputDirectory = directoryPath;
+            }
         }
 
         private void buttonOutDir_Click(object sender, EventArgs e)
         {
-            FolderSelectDialog selectionDialog = new FolderSelectDialog();
-            selectionDialog.Title = "Choose an output folder. Making a new folder is highly recommended.";
+            using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
+            {
+                selectionDialog.Description = "Choose an output folder. Making a new folder is highly recommended.";
+                selectionDialog.UseDescriptionForTitle = true;
 
-            if (textOutDir.Text != "")
-                selectionDialog.InitialDirectory = textOutDir.Text;
-            else if (textInDir.Text != "")
-                selectionDialog.InitialDirectory = inputDirectory;
+                if (!string.IsNullOrEmpty(textOutDir.Text))
+                    selectionDialog.InitialDirectory = textOutDir.Text;
+                else if (!string.IsNullOrEmpty(textInDir.Text))
+                    selectionDialog.InitialDirectory = inputDirectory;
 
-            if (selectionDialog.ShowDialog() != true) return;
-            string directoryPath = selectionDialog.FileName;
+                if (selectionDialog.ShowDialog() != DialogResult.OK) return;
+                string directoryPath = selectionDialog.SelectedPath;
 
-            textOutDir.Text = directoryPath;
-            outputDirectory = directoryPath;
+                textOutDir.Text = directoryPath;
+                outputDirectory = directoryPath;
+            }
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
