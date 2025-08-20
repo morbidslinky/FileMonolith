@@ -24,29 +24,7 @@ namespace ArchiveTransferrer
         public FormTransferrer()
         {
             InitializeComponent();
-            /*
-            string defaultGZExe = Properties.Settings.Default.GZExe;
-            if (!string.IsNullOrEmpty(defaultGZExe))
-            {
-                if (Directory.Exists(defaultGZExe))
-                {
-                    GZExe = defaultGZExe;
-                    textGZEXE.Text = defaultGZExe;
-                }
-            }
-            string defaultTPPExe = Properties.Settings.Default.TPPExe;
-            if (!string.IsNullOrEmpty(defaultTPPExe))
-            {
-                if (Directory.Exists(defaultTPPExe))
-                {
-                    TPPExe = defaultTPPExe;
-                    textTPPEXE.Text = defaultTPPExe;
-                }
-            }
-
-            updateTransferButton();
-            */    
-    }
+        }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {

@@ -41,8 +41,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="CityHash">
+      <HintPath>..\..\lib\CityHash.dll</HintPath>
+    </Reference>
     <Reference Include="GzsTool.Core">
       <HintPath>..\..\lib\GzsTool.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Zlib.Portable">
+      <HintPath>..\..\lib\Zlib.Portable.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

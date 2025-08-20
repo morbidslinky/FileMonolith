@@ -29,29 +29,30 @@ namespace ArchiveTransferrer
 
         public void Transfer(string GZg0sSrc, string MGODatSrc, string masterDir)
         {
-            string workDir = "temp";
+            string tempPath = Path.GetTempPath();
+            string workDir = Path.Combine(tempPath, Path.GetRandomFileName());
 
             try
             {
-                OnSendFeedback("Reading dictionaries...");
                 // READ DICTIONARIES
+                OnSendFeedback("Reading dictionaries...");
                 ReadDictionaries();
 
 
-                OnSendFeedback("Creating temp directory...");
                 // CREATE WORK DIRECTORY
+                OnSendFeedback("Creating Temporary Directory...");
                 string g0sWorkDir = Path.Combine(workDir, "texture6_gzs0_dat");
                 Directory.CreateDirectory(g0sWorkDir);
 
 
-                OnSendFeedback("Copying Ground Zeroes Archive...");
                 // COPY G0S TO WORK DIRECTORY
                 string GZg0sDst = Path.Combine(workDir, Path.GetFileName(GZg0sSrc));
+                OnSendFeedback("Copying GZ Archive...\n" + GZg0sDst);
                 File.Copy(GZg0sSrc, GZg0sDst, true);
 
 
-                OnSendFeedback("Extracting data_01.g0s...");
                 // OPEN G0S
+                OnSendFeedback("Extracting GZ Textures...");
                 IDirectory outputDirectory = new FileSystemDirectory(g0sWorkDir);
                 using (FileStream input = new FileStream(GZg0sDst, FileMode.Open, FileAccess.Read))
                 {
@@ -66,26 +67,27 @@ namespace ArchiveTransferrer
                 }
 
 
-                OnSendFeedback("Copying texture6_gzs0.dat.xml...");
                 // COPY REFERENCE XML TO WORK DIRECTORY
+                OnSendFeedback("Copying File List Xml...");
                 string datXmlDstPath = Path.Combine(workDir, "texture6_gzs0.dat.xml");
                 File.Copy("texture6_gzs0.dat.xml", datXmlDstPath, true);
 
-                OnSendFeedback("Formatting texture6_gzs0.dat...");
+
                 // WRITE DAT
+                OnSendFeedback("Repacking GZ Textures...");
                 WriteArchive(datXmlDstPath);
 
 
-                OnSendFeedback("Moving texture6_gzs0.dat...");
                 // COPY DAT TO MASTER/
+                OnSendFeedback("Moving GZ Archive...");
                 string GZDatSrc = Path.Combine(workDir, "texture6_gzs0.dat");
                 string GZDatDst = Path.Combine(masterDir, "texture6_gzs0.dat");
                 File.Copy(GZDatSrc, GZDatDst, true);
                 successfulTransfers.Add("texture6_gzs0.dat");
 
 
-                OnSendFeedback("Copying MGO Archive...");
                 // COPY MGO DAT TO MASTER/
+                OnSendFeedback("Copying MGO Archive...");
                 string MGODatDst = Path.Combine(masterDir, "texture5_mgo0.dat");
                 File.Copy(MGODatSrc, MGODatDst, true);
                 successfulTransfers.Add("texture5_mgo0.dat");
@@ -93,6 +95,10 @@ namespace ArchiveTransferrer
             catch (Exception e)
             {
                 errorOccurred = e.Message;
+                if (e.InnerException != null && !string.IsNullOrEmpty(e.InnerException.Message))
+                {
+                    errorOccurred += "\n" + e.InnerException.Message;
+                }
             }
             finally
             {
@@ -181,7 +187,7 @@ namespace ArchiveTransferrer
         public void DeleteDirectory(string target_dir)
         {
 
-            OnSendFeedback("Cleaning up " + Path.GetFileName(target_dir));
+            OnSendFeedback("Cleaning up\n" + target_dir);
             foreach (string file in Directory.EnumerateFiles(target_dir))
             {
                 //Debug.LogLine("[Cleanup Debug] Setting FileAttributes for " + file);

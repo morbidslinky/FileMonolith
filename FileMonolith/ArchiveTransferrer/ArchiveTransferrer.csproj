@@ -10,6 +10,9 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="CityHash">
+      <HintPath>..\..\lib\CityHash.dll</HintPath>
+    </Reference>
     <Reference Include="GzsTool.Core">
       <HintPath>..\..\lib\GzsTool.Core.dll</HintPath>
     </Reference>

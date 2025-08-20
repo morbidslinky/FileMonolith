@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CityHash">
-      <HintPath>..\..\..\SOC\lib\CityHash.dll</HintPath>
+      <HintPath>..\..\lib\CityHash.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
