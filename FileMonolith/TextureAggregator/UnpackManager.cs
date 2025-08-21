@@ -21,7 +21,7 @@ namespace TextureAggregator
         public event EventHandler<FeedbackEventArgs> SendFeedback;
         public string err = "";
 
-        protected virtual void OnSendFeedback(object feedback)
+        protected virtual void OnSendFeedback(string feedback)
         {
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }
@@ -34,7 +34,7 @@ namespace TextureAggregator
                 ReadDictionaries();
             } catch (Exception e)
             {
-                err = "[Unpack .pftxs]: Failed to read qar_dictionary.txt";
+                err = "[Unpack .pftxs]: Failed to read qar_dictionary.txt: \n" + e;
             }
 
             OnSendFeedback(string.Format("Unpacking {0}...", Path.GetFileName(pftxsPath)));
@@ -44,7 +44,7 @@ namespace TextureAggregator
                 return unpackedFiles.Where(file => file.EndsWith(".ftex")).ToArray();
             } catch (Exception e)
             {
-                err = "[Unpack .pftxs]: Failed to unpack .pftxs file";
+                err = "[Unpack .pftxs]: Failed to unpack .pftxs file: \n" + e;
             }
             return new string[] { };
         }
@@ -53,14 +53,7 @@ namespace TextureAggregator
         {
             string executingAssemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             const string qarDictionaryName = "qar_dictionary.txt";
-            try
-            {
-                Hashing.ReadDictionary(Path.Combine(executingAssemblyLocation, qarDictionaryName));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error reading {0}: {1}", qarDictionaryName, e.Message);
-            }
+            Hashing.ReadDictionary(Path.Combine(executingAssemblyLocation, qarDictionaryName));
         }
 
         public List<string> ReadArchive<T>(string filePath, string outputDir, bool condense) where T : ArchiveFile, new()

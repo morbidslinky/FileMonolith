@@ -14,13 +14,13 @@ using System.Windows.Forms;
 
 namespace ArchiveUnpacker
 {
-    public class FeedbackEventArgs : EventArgs { public object Feedback { get; set; } }
+    public class FeedbackEventArgs : EventArgs { public string Feedback { get; set; } }
 
     public class UnpackManager
     {
         public event EventHandler<FeedbackEventArgs> SendFeedback;
 
-        protected virtual void OnSendFeedback(object feedback)
+        protected virtual void OnSendFeedback(string feedback)
         {
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }
@@ -38,7 +38,7 @@ namespace ArchiveUnpacker
             }
             catch (Exception e)
             {
-                OnSendFeedback(e);
+                MessageBox.Show("The unpacking process failed due to an error: \n" + e, "Unpack Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Resources.ResXFileRef;
 
 namespace TextureAggregator
 {
@@ -28,7 +29,7 @@ namespace TextureAggregator
             if (!checkTPPMasterFileListExists())
                 return;
 
-            string defaultOutputDir = Properties.Settings.Default.outputDirectory;
+            string defaultOutputDir = Settings.OutputDirectory;
             if (!string.IsNullOrEmpty(defaultOutputDir))
             {
                 if (Directory.Exists(defaultOutputDir))
@@ -36,7 +37,7 @@ namespace TextureAggregator
                     textOutDir.Text = defaultOutputDir;
                 }
             }
-            string defaultTextureDir = Properties.Settings.Default.textureDirectory;
+            string defaultTextureDir = Settings.TextureDirectory;
             if (!string.IsNullOrEmpty(defaultTextureDir))
             {
                 if (Directory.Exists(defaultTextureDir))
@@ -44,7 +45,7 @@ namespace TextureAggregator
                     textArchiveDir.Text = defaultTextureDir;
                 }
             }
-            string defaultpftxs = Properties.Settings.Default.inputPftxs;
+            string defaultpftxs = Settings.InputPftxs;
             if (!string.IsNullOrEmpty(defaultpftxs))
             {
                 if (Directory.Exists(Path.GetDirectoryName(defaultpftxs)))
@@ -115,8 +116,8 @@ namespace TextureAggregator
 
             pftxsFullPath = inputFileDialog.FileName;
 
-            Properties.Settings.Default.inputPftxs = pftxsFullPath;
-            Properties.Settings.Default.Save();
+            Settings.InputPftxs = pftxsFullPath;
+            Settings.Save();
             
             textPftxs.Text = Path.GetFileName(pftxsFullPath);
         }
@@ -128,7 +129,7 @@ namespace TextureAggregator
                 selectionDialog.Description = "Choose a folder where the files will be copied to. Making a new folder is highly recommended.";
                 selectionDialog.UseDescriptionForTitle = true;
 
-                string defaultOutputDir = Properties.Settings.Default.outputDirectory;
+                string defaultOutputDir = textOutDir.Text;
                 if (!string.IsNullOrEmpty(defaultOutputDir))
                 {
                     if (Directory.Exists(defaultOutputDir))
@@ -142,8 +143,8 @@ namespace TextureAggregator
 
                 if (!string.IsNullOrEmpty(directoryPath))
                 {
-                    Properties.Settings.Default.outputDirectory = directoryPath;
-                    Properties.Settings.Default.Save();
+                    Settings.OutputDirectory = directoryPath;
+                    Settings.Save();
                 }
 
                 textOutDir.Text = directoryPath;
@@ -157,7 +158,7 @@ namespace TextureAggregator
                 selectionDialog.Description = "Choose a folder where vanilla .ftex and .ftexs files can be copied from. The tool will search subfolders as well.";
                 selectionDialog.UseDescriptionForTitle = true;
 
-                string defaultTextureDir = Properties.Settings.Default.textureDirectory;
+                string defaultTextureDir = textArchiveDir.Text;
                 if (!string.IsNullOrEmpty(defaultTextureDir))
                 {
                     if (Directory.Exists(defaultTextureDir))
@@ -171,8 +172,8 @@ namespace TextureAggregator
 
                 if (!string.IsNullOrEmpty(directoryPath))
                 {
-                    Properties.Settings.Default.textureDirectory = directoryPath;
-                    Properties.Settings.Default.Save();
+                    Settings.TextureDirectory = directoryPath;
+                    Settings.Save();
                 }
 
                 textArchiveDir.Text = directoryPath;
@@ -233,12 +234,21 @@ namespace TextureAggregator
 
         public void DisplayErrorList()
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (string err in errorList)
+            try
             {
-                sb.AppendLine(err);
+                using (StreamWriter writer = new StreamWriter("FailedTextureConversions.txt"))
+                {
+                    foreach (string errors in errorList)
+                    {
+                        writer.WriteLine($"{errors}\n");
+                    }
+                    MessageBox.Show(string.Format("Process Complete.\n\n{0} texture(s) failed to be converted (missing .ftexs or something else).\nSee FailedTextureConversions.txt for more info.", errorList.Count), "Process Complete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            MessageBox.Show("The following errors occurred during aggregation:\n" + sb.ToString());
+            catch (Exception fileError)
+            {
+                MessageBox.Show(string.Format("Process Complete.\n\n{0} texture(s) failed to be converted (missing .ftexs or something else).\nFailed to write FailedTextureConversions.txt:\n{1}.", errorList.Count, fileError.Message), "Process Complete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         public void DisplayError(string errorMsg)

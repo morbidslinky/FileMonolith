@@ -10,24 +10,26 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="settings\TextureAggregator.json" TargetPath="settings\RegexFileCopier.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="settings\TextureAggregator.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>settings\TextureAggregator.json</TargetPath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CityHash">
+      <HintPath>..\..\lib\CityHash.dll</HintPath>
+    </Reference>
     <Reference Include="FtexTool">
       <HintPath>..\..\lib\FtexTool.dll</HintPath>
     </Reference>
     <Reference Include="GzsTool.Core">
       <HintPath>..\..\lib\GzsTool.Core.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

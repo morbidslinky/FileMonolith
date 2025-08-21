@@ -12,7 +12,7 @@ namespace FileProliferator
     class UpdateManager
     {
         private int successfulUpdateCount = 0;
-        public string errorMsg = "";
+        public Exception errorMsg = null;
         private int totalCount = 0;
 
         public event EventHandler<FeedbackEventArgs> SendFeedback;
@@ -31,7 +31,7 @@ namespace FileProliferator
             }
             catch (Exception e)
             {
-                errorMsg = e.Message;
+                errorMsg = e;
                 return new string[0];
             }
         }

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace FilenameUpdater
 {
 
-    public class FeedbackEventArgs : EventArgs { public object Feedback { get; set; } }
+    public class FeedbackEventArgs : EventArgs { public string Feedback { get; set; } }
 
     static class Program
     {

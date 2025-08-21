@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FilenameUpdater
 {
@@ -16,7 +17,7 @@ namespace FilenameUpdater
 
         public event EventHandler<FeedbackEventArgs> SendFeedback;
 
-        protected virtual void OnSendFeedback(object feedback)
+        protected virtual void OnSendFeedback(string feedback)
         {
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }
@@ -30,7 +31,7 @@ namespace FilenameUpdater
             }
             catch (Exception e)
             {
-                OnSendFeedback(e);
+                MessageBox.Show("The update process failed due to an error: \n" + e, "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

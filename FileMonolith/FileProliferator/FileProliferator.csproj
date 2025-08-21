@@ -11,14 +11,23 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="settings\FileProliferator.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>settings\FileProliferator.json</TargetPath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="CityHash">
-      <HintPath>..\..\..\SOC\lib\CityHash.dll</HintPath>
+      <HintPath>..\..\lib\CityHash.dll</HintPath>
     </Reference>
     <Reference Include="FtexTool">
       <HintPath>..\..\lib\FtexTool.dll</HintPath>
     </Reference>
     <Reference Include="GzsTool.Core">
       <HintPath>..\..\lib\GzsTool.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

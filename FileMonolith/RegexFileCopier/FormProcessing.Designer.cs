@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProcessing));
             labelProcessing = new Label();
-            labelCurrentFile = new Label();
+            labelCurrentWork = new Label();
             pictureSpiral = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureSpiral).BeginInit();
             SuspendLayout();
@@ -47,12 +47,12 @@
             // 
             // labelCurrentFile
             // 
-            labelCurrentFile.Location = new Point(14, 53);
-            labelCurrentFile.Margin = new Padding(4, 0, 4, 0);
-            labelCurrentFile.Name = "labelCurrentFile";
-            labelCurrentFile.Size = new Size(357, 50);
-            labelCurrentFile.TabIndex = 1;
-            labelCurrentFile.TextAlign = ContentAlignment.MiddleCenter;
+            labelCurrentWork.Location = new Point(14, 53);
+            labelCurrentWork.Margin = new Padding(4, 0, 4, 0);
+            labelCurrentWork.Name = "labelCurrentFile";
+            labelCurrentWork.Size = new Size(357, 50);
+            labelCurrentWork.TabIndex = 1;
+            labelCurrentWork.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureSpiral
             // 
@@ -71,7 +71,7 @@
             ClientSize = new Size(372, 101);
             ControlBox = false;
             Controls.Add(pictureSpiral);
-            Controls.Add(labelCurrentFile);
+            Controls.Add(labelCurrentWork);
             Controls.Add(labelProcessing);
             Cursor = Cursors.WaitCursor;
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -89,7 +89,7 @@
         #endregion
 
         private System.Windows.Forms.Label labelProcessing;
-        private System.Windows.Forms.Label labelCurrentFile;
+        private System.Windows.Forms.Label labelCurrentWork;
         private System.Windows.Forms.PictureBox pictureSpiral;
     }
 }

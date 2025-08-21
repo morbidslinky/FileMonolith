@@ -11,7 +11,17 @@ namespace MassTextureConverter
         }
         public void OnSendFeedback(object source, FeedbackEventArgs e)
         {
-            labelCurrentFile.Invoke(new Action(() => labelCurrentFile.Text = e.Feedback));
+            try
+            {
+                if (labelCurrentWork.IsHandleCreated)
+                {
+                    labelCurrentWork.Invoke(new Action(() => labelCurrentWork.Text = e.Feedback));
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Exception occurred during feedback: \n" + exception);
+            }
         }
     }
 }

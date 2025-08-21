@@ -12,10 +12,14 @@ namespace FileProliferator
             InitializeComponent();
             buttonRefFile.Enabled = false;
             checkRefFile.Checked = false;
+
             buttonTextureDir.Enabled = false;
             checkPullTextures.Checked = false;
-            checkSetRefRoot.Checked = true;
+
+            checkSetRefRoot.Checked = false;
             checkSetRefRoot.Enabled = false;
+
+            checkConvertDds.Checked = true;
 
 
             if (!File.Exists("TppMasterFileList.txt"))
@@ -24,7 +28,7 @@ namespace FileProliferator
                 return;
             }
 
-            string defaultOutputDir = Properties.Settings.Default.outputDirectory;
+            string defaultOutputDir = Settings.OutputDirectory;
             if (!string.IsNullOrEmpty(defaultOutputDir))
             {
                 if (Directory.Exists(defaultOutputDir))
@@ -33,7 +37,7 @@ namespace FileProliferator
                     textOutDir.Text = defaultOutputDir;
                 }
             }
-            string defaultTextureDir = Properties.Settings.Default.textureDirectory;
+            string defaultTextureDir = Settings.TextureDirectory;
             if (!string.IsNullOrEmpty(defaultTextureDir))
             {
                 if (Directory.Exists(defaultTextureDir))
@@ -58,7 +62,7 @@ namespace FileProliferator
             inputFileDialog.Filter = "All files (*.*)|*.*";
             inputFileDialog.Multiselect = true;
 
-            string inputDirectory = Properties.Settings.Default.inputDirectory;
+            string inputDirectory = Settings.InputDirectory;
             if (!string.IsNullOrEmpty(inputDirectory))
             {
                 if (Directory.Exists(inputDirectory))
@@ -73,8 +77,8 @@ namespace FileProliferator
             selectedFilePaths = inputFileDialog.FileNames;
             if (selectedFilePaths.Length > 0)
             {
-                Properties.Settings.Default.inputDirectory = Path.GetDirectoryName(selectedFilePaths[0]);
-                Properties.Settings.Default.Save();
+                Settings.InputDirectory = Path.GetDirectoryName(selectedFilePaths[0]);
+                Settings.Save();
             }
 
             string filesText = "";
@@ -96,7 +100,7 @@ namespace FileProliferator
             OpenFileDialog inputFileDialog = new OpenFileDialog();
             inputFileDialog.Filter = "All files (*.*)|*.*";
 
-            string defaultRefDir = Properties.Settings.Default.refDirectory;
+            string defaultRefDir = Settings.ReferenceDirectory;
             if (!string.IsNullOrEmpty(defaultRefDir))
             {
                 if (Directory.Exists(defaultRefDir))
@@ -113,8 +117,8 @@ namespace FileProliferator
 
             if (!string.IsNullOrEmpty(refFilePath))
             {
-                Properties.Settings.Default.refDirectory = Path.GetDirectoryName(refFilePath);
-                Properties.Settings.Default.Save();
+                Settings.ReferenceDirectory = Path.GetDirectoryName(refFilePath);
+                Settings.Save();
             }
 
             textRefFile.Text = string.Format("\"{0}\" ", referenceFileName);
@@ -122,7 +126,7 @@ namespace FileProliferator
 
         private void buttonOutDir_Click(object sender, EventArgs e)
         {
-            string defaultOutputDir = Properties.Settings.Default.outputDirectory;
+            string defaultOutputDir = Settings.OutputDirectory;
 
             using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
             {
@@ -140,8 +144,8 @@ namespace FileProliferator
 
                 if (!string.IsNullOrEmpty(directoryPath))
                 {
-                    Properties.Settings.Default.outputDirectory = directoryPath;
-                    Properties.Settings.Default.Save();
+                    Settings.OutputDirectory = directoryPath;
+                    Settings.Save();
                 }
 
                 outputDirectory = directoryPath;
@@ -156,7 +160,7 @@ namespace FileProliferator
 
         private void buttonTextureDir_Click(object sender, EventArgs e)
         {
-            string defaultTextureDir = Properties.Settings.Default.textureDirectory;
+            string defaultTextureDir = Settings.TextureDirectory;
 
             using (FolderBrowserDialog selectionDialog = new FolderBrowserDialog())
             {
@@ -174,8 +178,8 @@ namespace FileProliferator
 
                 if (!string.IsNullOrEmpty(directoryPath))
                 {
-                    Properties.Settings.Default.textureDirectory = directoryPath;
-                    Properties.Settings.Default.Save();
+                    Settings.TextureDirectory = directoryPath;
+                    Settings.Save();
                 }
 
                 VanillaTexturesPath = directoryPath;
@@ -223,13 +227,13 @@ namespace FileProliferator
             updateManager.SendFeedback += processWindow.OnSendFeedback;
             proliferator.SendFeedback += processWindow.OnSendFeedback;
             textureManager.SendFeedback += processWindow.OnSendFeedback;
-            string err = "";
+            Exception err = null;
 
             if (checkConvertDds.Checked)
             {
                 ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { selectedFilePaths = textureManager.convertDdsToFtex(selectedFilePaths); }));
                 err = textureManager.errorMsg;
-                if (err != "")
+                if (err != null)
                 {
                     DisplayError(err);
                     return;
@@ -248,7 +252,7 @@ namespace FileProliferator
             {
                 ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { selectedFilePaths = updateManager.DoUpdates(selectedFilePaths); }));
                 err = updateManager.errorMsg;
-                if (err != "")
+                if (err != null)
                 {
                     DisplayError(err);
                     return;
@@ -264,7 +268,7 @@ namespace FileProliferator
                 ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { proliferator.DoProliferateFromReference(selectedFilePaths, outputDirectory, checkSetRefRoot.Checked, referenceFileName); }));
             }
             err = proliferator.errorMsg;
-            if (err != "")
+            if (err != null)
             {
                 DisplayError(err);
                 return;
@@ -283,7 +287,7 @@ namespace FileProliferator
                     //textureManager.PullVanillaTextures(outputDirectory, VanillaTexturesPath, selectedFilePaths);
                 }
                 err = textureManager.errorMsg;
-                if (err != "")
+                if (err != null)
                 {
                     DisplayError(err);
                     return;
@@ -306,7 +310,7 @@ namespace FileProliferator
                 {
                     ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { textureManager.PackPftxsFolders(outputDirectory); }));
                     err = textureManager.errorMsg;
-                    if (err != "")
+                    if (err != null)
                     {
                         DisplayError(err);
                         return;
@@ -317,7 +321,7 @@ namespace FileProliferator
                     {
                         ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { textureManager.DeletePftxsFolders(outputDirectory); }));
                         err = textureManager.errorMsg;
-                        if (err != "")
+                        if (err != null)
                         {
                             DisplayError(err);
                             return;
@@ -350,7 +354,7 @@ namespace FileProliferator
             }
         }
 
-        public void DisplayError(string errorMsg)
+        public void DisplayError(Exception errorMsg)
         {
             MessageBox.Show("An error occurred while attempting to proliferate data:\n" + errorMsg);
         }

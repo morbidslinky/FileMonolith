@@ -11,7 +11,7 @@ namespace RegexFileCopier
         {
             InitializeComponent();
 
-            string defaultInputDir = Properties.Settings.Default.inputDirectory;
+            string defaultInputDir = Settings.InputDirectory;
             if (!string.IsNullOrEmpty(defaultInputDir))
             {
                 if (Directory.Exists(defaultInputDir))
@@ -21,7 +21,7 @@ namespace RegexFileCopier
                 }
             }
 
-            string defaultOutputDir = Properties.Settings.Default.outputDirectory;
+            string defaultOutputDir = Settings.OutputDirectory;
             if (!string.IsNullOrEmpty(defaultOutputDir))
             {
                 if (Directory.Exists(defaultOutputDir))
@@ -31,7 +31,7 @@ namespace RegexFileCopier
                 }
             }
 
-            string defaultRegex = Properties.Settings.Default.regexText;
+            string defaultRegex = Settings.RegexText;
             if (!string.IsNullOrEmpty(defaultRegex))
             {
                 regexText = defaultRegex;
@@ -59,8 +59,8 @@ namespace RegexFileCopier
 
                     inputDir = inputDirectoryPath;
                     textInputDir.Text = inputDirectoryPath;
-                    Properties.Settings.Default.inputDirectory = inputDirectoryPath;
-                    Properties.Settings.Default.Save();
+                    Settings.InputDirectory = inputDirectoryPath;
+                    Settings.Save();
                 }
             }
         }
@@ -84,8 +84,8 @@ namespace RegexFileCopier
 
                     outputDir = outputDirectoryPath;
                     textOutputDir.Text = outputDirectoryPath;
-                    Properties.Settings.Default.outputDirectory = outputDirectoryPath;
-                    Properties.Settings.Default.Save();
+                    Settings.OutputDirectory = outputDirectoryPath;
+                    Settings.Save();
                 }
             }
         }
@@ -110,8 +110,8 @@ namespace RegexFileCopier
                 MessageBox.Show("Please add a regular expression.", "Missing Regex", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            Properties.Settings.Default.regexText = regexText;
-            Properties.Settings.Default.Save();
+            Settings.RegexText = regexText;
+            Settings.Save();
 
             if (inputDir == outputDir)
             {

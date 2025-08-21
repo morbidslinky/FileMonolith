@@ -2,7 +2,7 @@
 
 namespace RegexFileCopier
 {
-    public class FeedbackEventArgs : EventArgs { public object Feedback { get; set; } }
+    public class FeedbackEventArgs : EventArgs { public string Feedback { get; set; } }
 
     public class CopyManager
     {
@@ -10,7 +10,7 @@ namespace RegexFileCopier
 
         private List<string> files = new List<string>();
 
-        protected virtual void OnSendFeedback(object feedback)
+        protected virtual void OnSendFeedback(string feedback)
         {
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }

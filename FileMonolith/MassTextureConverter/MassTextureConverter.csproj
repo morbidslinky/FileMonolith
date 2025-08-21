@@ -14,5 +14,8 @@
     <Reference Include="FtexTool">
       <HintPath>..\..\lib\FtexTool.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

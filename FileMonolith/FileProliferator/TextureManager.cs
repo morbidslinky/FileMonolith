@@ -12,7 +12,7 @@ namespace FileProliferator
 
         public static string[] TppFileList = File.ReadAllLines("TppMasterFileList.txt");
 
-        public string errorMsg = "";
+        public Exception errorMsg = null;
 
         private int conversionFailedCount = 0;
 
@@ -56,7 +56,7 @@ namespace FileProliferator
             }
             catch (Exception e)
             {
-                errorMsg = e.Message;
+                errorMsg = e;
             }
 
             return newFilePaths.ToArray();
@@ -133,7 +133,7 @@ namespace FileProliferator
             }
             catch (Exception e)
             {
-                errorMsg = e.Message;
+                errorMsg = e;
             }
         }
 
@@ -182,7 +182,7 @@ namespace FileProliferator
             }
             catch (Exception e)
             {
-                errorMsg = e.Message;
+                errorMsg = e;
             }
         }
 
@@ -206,7 +206,7 @@ namespace FileProliferator
             }
             catch (Exception e)
             {
-                errorMsg = e.Message;
+                errorMsg = e;
             }
 
         }

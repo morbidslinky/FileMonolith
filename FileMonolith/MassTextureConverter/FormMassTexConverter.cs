@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using ProcessWindow;
+﻿using ProcessWindow;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 
 namespace MassTextureConverter
 {
@@ -68,7 +69,23 @@ namespace MassTextureConverter
                     int conversionFailedCount = converter.GetFailureCount();
                     int conversionTryCount = converter.GetTryCount();
                     if (conversionFailedCount > 0)
-                        MessageBox.Show(string.Format("Process Complete.\n\n{0} of {1} file(s) could not be converted (missing .ftexs).", conversionFailedCount, conversionTryCount), "Process Complete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    {
+                        try
+                        {
+                            using (StreamWriter writer = new StreamWriter("FailedTextureConversions.txt"))
+                            {
+                                foreach (var kvp in converter.FailedMapping)
+                                {
+                                    writer.WriteLine($"{kvp.Key}\n{kvp.Value}\n");
+                                }
+                                MessageBox.Show(string.Format("Process Complete.\n\n{0} of {1} file(s) failed to be converted (missing .ftexs or something else).\nSee FailedTextureConversions.txt for more info.", conversionFailedCount, conversionTryCount), "Process Complete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        } 
+                        catch (Exception fileError)
+                        {
+                            MessageBox.Show(string.Format("Process Complete.\n\n{0} of {1} file(s) failed to be converted (missing .ftexs or something else).\nFailed to write FailedTextureConversions.txt:\n{2}.", conversionFailedCount, conversionTryCount, fileError.Message), "Process Complete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
                     else
                         MessageBox.Show(string.Format("{0} file(s) converted.", conversionTryCount), "Process Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

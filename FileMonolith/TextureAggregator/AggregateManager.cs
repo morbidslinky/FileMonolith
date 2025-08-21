@@ -12,7 +12,7 @@ namespace TextureAggregator
         public event EventHandler<FeedbackEventArgs> SendFeedback;
         public List<string> errorList = new List<string>();
 
-        protected virtual void OnSendFeedback(object feedback)
+        protected virtual void OnSendFeedback(string feedback)
         {
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }

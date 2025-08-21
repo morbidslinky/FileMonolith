@@ -14,11 +14,14 @@ namespace FilenameUpdater
         {
             try
             {
-                labelCurrentFile.Invoke(new Action(() => labelCurrentFile.Text = (string)e.Feedback));
+                if (labelCurrentWork.IsHandleCreated)
+                {
+                    labelCurrentWork.Invoke(new Action(() => labelCurrentWork.Text = e.Feedback));
+                }
             }
-            catch
+            catch (Exception exception)
             {
-                MessageBox.Show("Exception occurred during update: \n" + (Exception)e.Feedback);
+                MessageBox.Show("Exception occurred during feedback: \n" + exception);
             }
         }
     }

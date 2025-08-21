@@ -10,11 +10,11 @@ namespace FileProliferator
     public class ProliferateManager
     {
         public static string[] TppFileList = File.ReadAllLines("TppMasterFileList.txt");
-        public string errorMsg = "";
+        public Exception errorMsg = null;
 
         public event EventHandler<FeedbackEventArgs> SendFeedback;
 
-        protected virtual void OnSendFeedback(object feedback)
+        protected virtual void OnSendFeedback(string feedback)
         {
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }
@@ -40,7 +40,7 @@ namespace FileProliferator
             } 
             catch (Exception e)
             {
-                errorMsg = e.Message;
+                errorMsg = e;
             }
         }
 
@@ -62,7 +62,7 @@ namespace FileProliferator
             }
             catch (Exception e)
             {
-                errorMsg = e.Message;
+                errorMsg = e;
             }
         }
 

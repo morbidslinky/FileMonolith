@@ -22,7 +22,7 @@ namespace ArchiveTransferrer
         public ArrayList successfulTransfers = new ArrayList();
         public string errorOccurred = "";
 
-        protected virtual void OnSendFeedback(object feedback)
+        protected virtual void OnSendFeedback(string feedback)
         {
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }

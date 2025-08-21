@@ -48,15 +48,15 @@ namespace TextureAggregator
                 }
                 catch (FtexTool.Exceptions.MissingFtexsFileException)
                 {
-                    errorList.Add("[Convert .dds]: Failed to convert " + texturename + "\nMissing .ftexs files, likely due to a custom (new) texture.");
+                    errorList.Add("[Convert .dds]: Failed to convert " + texturename + "\nMissing .ftexs files, maybe due to a custom (new) texture?");
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    errorList.Add("[Convert .dds]: Failed to convert " + texturename + "\nLikely mismatching .ftexs due to a modded (existing) texture.");
+                    errorList.Add("[Convert .dds]: Failed to convert " + texturename + "\nMaybe mismatching .ftexs due to a modded (existing) texture?");
                 }
                 catch (Exception e)
                 {
-                    errorList.Add("[Convert .dds]: Mysteriously failed to convert " + texturename + "\nError message: " + e.Message);
+                    errorList.Add("[Convert .dds]: Mysteriously failed to convert " + texturename + "\nError message: " + e);
                 }
             }
         }

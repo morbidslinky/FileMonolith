@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProcessingUpdate));
             pictureSpiral = new System.Windows.Forms.PictureBox();
-            labelCurrentFile = new System.Windows.Forms.Label();
+            labelCurrentWork = new System.Windows.Forms.Label();
             labelUpdate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)pictureSpiral).BeginInit();
             SuspendLayout();
@@ -47,12 +47,12 @@
             // 
             // labelCurrentFile
             // 
-            labelCurrentFile.Location = new System.Drawing.Point(14, 53);
-            labelCurrentFile.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelCurrentFile.Name = "labelCurrentFile";
-            labelCurrentFile.Size = new System.Drawing.Size(357, 50);
-            labelCurrentFile.TabIndex = 7;
-            labelCurrentFile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelCurrentWork.Location = new System.Drawing.Point(14, 53);
+            labelCurrentWork.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelCurrentWork.Name = "labelCurrentFile";
+            labelCurrentWork.Size = new System.Drawing.Size(357, 50);
+            labelCurrentWork.TabIndex = 7;
+            labelCurrentWork.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelUpdate
             // 
@@ -71,7 +71,7 @@
             ClientSize = new System.Drawing.Size(371, 101);
             ControlBox = false;
             Controls.Add(pictureSpiral);
-            Controls.Add(labelCurrentFile);
+            Controls.Add(labelCurrentWork);
             Controls.Add(labelUpdate);
             Cursor = System.Windows.Forms.Cursors.WaitCursor;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -90,7 +90,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureSpiral;
-        private System.Windows.Forms.Label labelCurrentFile;
+        private System.Windows.Forms.Label labelCurrentWork;
         private System.Windows.Forms.Label labelUpdate;
     }
 }

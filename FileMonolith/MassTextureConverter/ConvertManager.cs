@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace MassTextureConverter
@@ -8,6 +9,7 @@ namespace MassTextureConverter
     public class ConvertManager
     {
         public event EventHandler<FeedbackEventArgs> SendFeedback;
+        public Dictionary<string, Exception>FailedMapping = new Dictionary<string, Exception>();
 
         private int conversionFailedCount = 0;
         private int conversionTryCount = 0;
@@ -50,8 +52,9 @@ namespace MassTextureConverter
                     //FtexTool.Program.Main(ftexArgs);
                     FtexTool.Program.UnpackFtexFile(ftexFileInfo.FullName, ddsOutputDir);
                 }
-                catch (FtexTool.Exceptions.MissingFtexsFileException)
+                catch (Exception e)
                 {
+                    FailedMapping.Add(ftexFileInfo.FullName, e);
                     conversionFailedCount++;
                 }
             }
