@@ -47,19 +47,19 @@
             // 
             // labelCurrentWork
             // 
-            labelCurrentWork.Location = new System.Drawing.Point(14, 53);
+            labelCurrentWork.Location = new System.Drawing.Point(3, 52);
             labelCurrentWork.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelCurrentWork.Name = "labelCurrentWork";
-            labelCurrentWork.Size = new System.Drawing.Size(357, 50);
+            labelCurrentWork.Size = new System.Drawing.Size(352, 50);
             labelCurrentWork.TabIndex = 7;
             labelCurrentWork.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelUpdate
             // 
-            labelUpdate.Location = new System.Drawing.Point(14, 9);
+            labelUpdate.Location = new System.Drawing.Point(3, 9);
             labelUpdate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelUpdate.Name = "labelUpdate";
-            labelUpdate.Size = new System.Drawing.Size(357, 27);
+            labelUpdate.Size = new System.Drawing.Size(352, 27);
             labelUpdate.TabIndex = 6;
             labelUpdate.Text = "Processing, please wait...";
             labelUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -68,7 +68,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(362, 91);
+            ClientSize = new System.Drawing.Size(358, 111);
             ControlBox = false;
             Controls.Add(pictureSpiral);
             Controls.Add(labelCurrentWork);

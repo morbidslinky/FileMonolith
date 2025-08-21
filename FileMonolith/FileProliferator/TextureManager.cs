@@ -23,9 +23,11 @@ namespace FileProliferator
             SendFeedback?.Invoke(this, new FeedbackEventArgs() { Feedback = feedback });
         }
 
-        public string[] convertDdsToFtex(string[] filePaths)
+        public string[] convertDdsToFtex(string[] filePaths, out string[] temporaryFiles)
         {
             List<string> newFilePaths = new List<string>();
+            List<string> temporaryFilePaths = new List<string>();
+
             try
             {
                 foreach (string filePath in filePaths)
@@ -40,7 +42,9 @@ namespace FileProliferator
                             FtexTool.Program.Main(ftexArgs);
 
                             OnSendFeedback("Converting: " + Path.GetFileName(filePath));
-                            newFilePaths.AddRange(Directory.GetFiles(fileDir, String.Format("{0}*.ftex?", fileNameNoExtension), SearchOption.TopDirectoryOnly));
+                            string[] convertedFiles = Directory.GetFiles(fileDir, String.Format("{0}*.ftex?", fileNameNoExtension), SearchOption.TopDirectoryOnly);
+                            newFilePaths.AddRange(convertedFiles);
+                            temporaryFilePaths.AddRange(convertedFiles);
                         }
                         catch (FtexTool.Exceptions.FtexToolException)
                         {
@@ -59,6 +63,7 @@ namespace FileProliferator
                 errorMsg = e;
             }
 
+            temporaryFiles = temporaryFilePaths.ToArray();
             return newFilePaths.ToArray();
         }
 
@@ -229,6 +234,21 @@ namespace FileProliferator
             catch (System.UnauthorizedAccessException)
             {
                 Directory.Delete(dir, true);
+            }
+        }
+
+        public void DeleteTemporaryFiles(string[] tempFiles)
+        {
+            foreach (string tempFile in tempFiles)
+            {
+                try
+                {
+                    if (File.Exists(tempFile))
+                    {
+                        File.Delete(tempFile);
+                    }
+                }
+                catch { }
             }
         }
 

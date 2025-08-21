@@ -208,7 +208,7 @@ namespace TextureAggregator
 
             if (checkConvertDDS.Checked)
             {
-                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { converter.DoMassConversion(textOutDir.Text, textOutDir.Text, !condense); }));
+                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { converter.DoMassConversion(unpackedPaths, textOutDir.Text, !condense); }));
 
                 DialogResult dialogResult = MessageBox.Show("The .ftex files have been converted to .dds files.\n\nWould you like to delete the leftover .ftex and .ftexs files?", "Delete Fox Files?", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)

@@ -229,9 +229,12 @@ namespace FileProliferator
             textureManager.SendFeedback += processWindow.OnSendFeedback;
             Exception err = null;
 
+            string[] proliferationFiles = selectedFilePaths;
+            string[] tempProliferationFiles = Array.Empty<string>();
+
             if (checkConvertDds.Checked)
             {
-                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { selectedFilePaths = textureManager.convertDdsToFtex(selectedFilePaths); }));
+                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { proliferationFiles = textureManager.convertDdsToFtex(proliferationFiles, out tempProliferationFiles); }));
                 err = textureManager.errorMsg;
                 if (err != null)
                 {
@@ -250,7 +253,7 @@ namespace FileProliferator
 
             if(checkNameUpdates.Checked)
             {
-                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { selectedFilePaths = updateManager.DoUpdates(selectedFilePaths); }));
+                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { proliferationFiles = updateManager.DoUpdates(proliferationFiles); }));
                 err = updateManager.errorMsg;
                 if (err != null)
                 {
@@ -261,11 +264,11 @@ namespace FileProliferator
 
             if (!checkRefFile.Checked)
             {
-                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { proliferator.DoProliferate(selectedFilePaths, outputDirectory); }));                
+                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { proliferator.DoProliferate(proliferationFiles, outputDirectory); }));                
             }
             else
             {
-                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { proliferator.DoProliferateFromReference(selectedFilePaths, outputDirectory, checkSetRefRoot.Checked, referenceFileName); }));
+                ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { proliferator.DoProliferateFromReference(proliferationFiles, outputDirectory, checkSetRefRoot.Checked, referenceFileName); }));
             }
             err = proliferator.errorMsg;
             if (err != null)
@@ -283,8 +286,8 @@ namespace FileProliferator
                 }
                 else
                 {
-                    ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { textureManager.PullVanillaTextures(outputDirectory, VanillaTexturesPath, selectedFilePaths); }));
-                    //textureManager.PullVanillaTextures(outputDirectory, VanillaTexturesPath, selectedFilePaths);
+                    ProcessingWindow.Show(processWindow, new Action((MethodInvoker)delegate { textureManager.PullVanillaTextures(outputDirectory, VanillaTexturesPath, proliferationFiles); }));
+                    //textureManager.PullVanillaTextures(outputDirectory, VanillaTexturesPath, proliferationFiles);
                 }
                 err = textureManager.errorMsg;
                 if (err != null)
@@ -330,6 +333,8 @@ namespace FileProliferator
                 }
                 Console.WriteLine("Pack _PFTXS Complete");
             }
+
+            textureManager.DeleteTemporaryFiles(tempProliferationFiles);
 
             if (texturePullsFailed > 0)
             {
