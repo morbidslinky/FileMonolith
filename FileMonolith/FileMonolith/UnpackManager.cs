@@ -44,7 +44,7 @@ namespace ArchiveUnpacker
 
         private void ReadDictionaries()
         {
-            string executingAssemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string executingAssemblyLocation = AppContext.BaseDirectory;
             const string qarDictionaryName = "qar_dictionary.txt";
             try
             {

@@ -243,3 +243,14 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/FileMonolith.win-x64.zip
+/FileMonolith.linux-x64.zip
+/LinuxRelease
+/FileMonolith/ArchiveTransferrer/Properties/PublishProfiles
+/FileMonolith/FileMonolith/Properties/PublishProfiles
+/FileMonolith/FilenameUpdater/Properties/PublishProfiles
+/FileMonolith/FileProliferator/Properties/PublishProfiles
+/FileMonolith/MassTextureConverter/Properties/PublishProfiles
+/FileMonolith/RegexFileCopier/Properties/PublishProfiles
+/FileMonolith/TextureAggregator/Properties/PublishProfiles/FolderProfile.pubxml
+/FileMonolith/TextureAggregator/Properties/PublishProfiles/FolderProfile1.pubxml
