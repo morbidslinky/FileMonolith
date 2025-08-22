@@ -1,6 +1,6 @@
 # File Monolith
 
-File Monolith is a set of file management tools for Metal Gear Solid V. The goal of these tools is to improve accessibility for MGSV modding.
+File Monolith is a set of .NET 8 WinForms file management tools for Metal Gear Solid V. The goal of these tools is to improve accessibility for MGSV modding.
 
 ## Tools Overview
 
@@ -10,6 +10,8 @@ File Monolith is a set of file management tools for Metal Gear Solid V. The goal
 * **Filename Updater**: The user can select any files with hashed filenames, and the tool will attempt to update their names and filepaths using the latest qar_dictionary. Any updated files are copied to the target directory.
 * **Archive Transferrer**: The user selects their Ground Zeroes and Phantom Pain executable files, and the tool will attempt to automatically transfer the game archives from Ground Zeroes and Metal Gear Online into The Phantom Pain.
 * **Texture Aggregator**: The user can select a Packed Fox Textures (.pftxs) file, and the tool will attempt to automatically complete the textures partially contained in the .pftxs, and then convert the textures to DirectDraw Surface (.dds) format.
+* **Regex File Copier**: The user can copy files and their directory structures to another folder using regular expressions.
+  
 ## Archive Unpacker
 
 The Archive Unpacker is a simple tool which unpacks user-specified .dat files, and then unpacks all .fpk, .fpkd, .pftxs and .sbp files which resided in the .dat files into one single directory structure. 
@@ -66,7 +68,7 @@ Notes:
     * This option is intended to utilize the Archive Unpacker's Output Directory as a texture library.
     * This process may take a while depending on the number of generated _pftxs and their vanilla filesizes.
     * This function also utilizes the TppMasterFileList in order to find .ftex/.ftexs files that belong to a given pftxs path.
-  * **Convert .dds to .ftex**: With this option enabled, The user can use .dds files as Input Files. The tool will attempt to convert these files to .ftex/.ftexs files before proliferating them to the MakeBite file structure.
+  * **Convert .dds to .ftex**: With this option enabled (on by default), The user can use .dds files as Input Files. The tool will attempt to convert these files to .ftex/.ftexs files before proliferating them to the MakeBite file structure.
     * If this option is not selected, using .dds files will not be converted or copied to the MakeBite directory structure (unless the user manually adds the .dds file paths to the TppMasterFileList.txt).
   * **Pack _pftxs**: Upon creating the MakeBite Directory Structure, this option will automatically pack any _pftxs folders to .pftxs files using BobDoleOwndU's AutoPftxsTool.
     * Since MakeBite does not automatically repack _pftxs folders like it does with _fpk or _fpkd, the user will need to either manually pack _pftxs folders, or check the "Pack _pftxs" checkbox.
@@ -116,3 +118,7 @@ Notes:
 * **TppMasterFileList.txt**: Similar to the File Proliferator tool, Texture Aggregator references TppMasterFileList.txt to determine the additional textures which need to be pulled from the unpacked texture archives.
 * I recommend using the SageThumbs Plugin in order to preview the .dds files in their thumbnails without opening them in GIMP or Photoshop.
   * https://www.cherubicsoft.com/en/projects/sagethumbs
+
+ ## Regex File Copier
+
+ More for researching, exploring and referencing files than creating mods. Given a regular expression (try https://regexr.com/), the tool will copy files that match the regular expression from one specified folder into another, retaining the subdirectory nesting of the copied files.
